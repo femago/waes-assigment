@@ -35,4 +35,16 @@ public class ComparisonTest {
 	//Then
 	assertThat(diff.getResult()).isNotNull().isEqualTo(ComparisonResult.DIFF_SIZE);
   }
+
+  @Test
+  public void differentWithSameSize() {
+	//Given
+	String left = "NmtRZEtmMXhDbGphY0VTNlFaZEQKc0lrSDc1MWdieThBUDVhbGRLOVgKbzZnWjlvbGdTSWRsVFZTdVBjVFE=";
+	String right = "MEQ0Y3N3YnNwSG1uY3NMNVFPQWEKckN1SXc0Slh5SWxsZllnZXBRVGQKSlVzNk9IT2U3ako3aUJBZFE5eWM=";
+	Comparison tested = new Comparison(left, right);
+	//When
+	ComparisonResponseModel diff = tested.diff();
+	//Then
+	assertThat(diff.getResult()).isNotNull().isEqualTo(ComparisonResult.DIFF);
+  }
 }
