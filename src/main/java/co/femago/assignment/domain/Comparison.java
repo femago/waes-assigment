@@ -1,5 +1,6 @@
 package co.femago.assignment.domain;
 
+import static co.femago.assignment.domain.model.ComparisonResponseModel.ComparisonResult.DIFF_SIZE;
 import static co.femago.assignment.domain.model.ComparisonResponseModel.ComparisonResult.EQUAL;
 
 import co.femago.assignment.domain.model.ComparisonResponseModel;
@@ -16,7 +17,9 @@ public class Comparison {
   }
 
   public ComparisonResponseModel diff() {
-	if (left.equals(right)) {
+	if (left.length() != right.length()) {
+	  return new ComparisonResponseModel(DIFF_SIZE);
+	} else if (left.equals(right)) {
 	  return new ComparisonResponseModel(EQUAL);
 	}
 	return null;
