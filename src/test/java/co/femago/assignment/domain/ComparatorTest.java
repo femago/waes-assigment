@@ -2,6 +2,7 @@ package co.femago.assignment.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import co.femago.assignment.domain.model.Comparator;
 import co.femago.assignment.domain.model.ComparisonResponse;
 import co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult;
 import co.femago.assignment.domain.model.DiffDetail;

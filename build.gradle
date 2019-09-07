@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.8.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'org.unbroken-dome.test-sets' version '2.1.1'
 }
 
 group = 'co.femago'
@@ -22,6 +23,10 @@ repositories {
     mavenCentral()
 }
 
+testSets {
+    testIntegration { dirName = 'test-integration' }
+}
+
 dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
@@ -29,11 +34,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.googlecode.zohhak:zohhak:1.1.1'
+
 }

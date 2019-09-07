@@ -1,11 +1,9 @@
-package co.femago.assignment.domain;
+package co.femago.assignment.domain.model;
 
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.DIFF;
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.DIFF_SIZE;
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.EQUAL;
 
-import co.femago.assignment.domain.model.ComparisonResponse;
-import co.femago.assignment.domain.model.DiffDetail;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import javax.validation.constraints.NotNull;
@@ -20,6 +18,12 @@ public class Comparator {
   public Comparator(@NotNull String left, @NotNull String right) {
 	this.left = left;
 	this.right = right;
+  }
+
+  public Comparator(@NotNull String left, @NotNull String right,
+	  @NotNull ComparisonResponse response) {
+	this(left, right);
+	this.response = response;
   }
 
   public ComparisonResponse diff() {
