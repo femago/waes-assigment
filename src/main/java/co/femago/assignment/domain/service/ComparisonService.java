@@ -19,17 +19,20 @@ public class ComparisonService implements ComparisonPort, OperatorsPort {
   @Override
   public ComparisonResponse compare(String id) {
 	Comparator comparator = repository.locateComparision(id);
-	return comparator.diff();
+
+	ComparisonResponse diff = comparator.diff();
+	repository.saveComparisonResponse(id, diff);
+	return diff;
   }
 
   @Override
   public void saveOperator(String id, Operator operator, String value) {
-    switch (operator){
+	switch (operator) {
 	  case LEFT:
-		repository.saveLeftOperator(id,value);
+		repository.saveLeftOperator(id, value);
 		return;
 	  case RIGHT:
-		repository.saveRightOperator(id,value);
+		repository.saveRightOperator(id, value);
 		return;
 	}
   }

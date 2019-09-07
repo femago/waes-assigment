@@ -1,6 +1,7 @@
 package co.femago.assignment.domain.port;
 
 import co.femago.assignment.domain.model.Comparator;
+import co.femago.assignment.domain.model.ComparisonResponse;
 
 public interface ComparisonRepository {
 
@@ -10,4 +11,5 @@ public interface ComparisonRepository {
 
   Comparator locateComparision(String id);
 
+  void saveComparisonResponse(String id, ComparisonResponse diff);
 }

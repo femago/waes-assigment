@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import co.femago.assignment.domain.exception.ComparisionNotFoundException;
 import co.femago.assignment.domain.exception.DiffAlreadyCalculatedException;
+import co.femago.assignment.domain.model.ComparatorBuilder;
 import co.femago.assignment.gateway.repository.config.MongoConfig;
 import co.femago.assignment.gateway.repository.entity.ComparisonEntity;
 import co.femago.assignment.gateway.repository.entity.ComparisonEntity.ComparisonResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = MongoConfig.class)
+@ContextConfiguration(classes = {MongoConfig.class, ComparatorBuilder.class})
 public class ComparisonRepositoryAdapterTest {
 
   private static final String A_TEST_ID = "TestId";

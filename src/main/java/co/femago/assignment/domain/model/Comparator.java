@@ -15,12 +15,12 @@ public class Comparator {
 
   private ComparisonResponse response;
 
-  public Comparator(@NotNull String left, @NotNull String right) {
+  Comparator(@NotNull String left, @NotNull String right) {
 	this.left = left;
 	this.right = right;
   }
 
-  public Comparator(@NotNull String left, @NotNull String right,
+  Comparator(@NotNull String left, @NotNull String right,
 	  @NotNull ComparisonResponse response) {
 	this(left, right);
 	this.response = response;

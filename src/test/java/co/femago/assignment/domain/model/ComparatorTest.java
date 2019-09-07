@@ -1,11 +1,8 @@
-package co.femago.assignment.domain;
+package co.femago.assignment.domain.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import co.femago.assignment.domain.model.Comparator;
-import co.femago.assignment.domain.model.ComparisonResponse;
 import co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult;
-import co.femago.assignment.domain.model.DiffDetail;
 import com.googlecode.zohhak.api.TestWith;
 import com.googlecode.zohhak.api.runners.ZohhakRunner;
 import org.junit.Test;
@@ -21,8 +18,10 @@ public class ComparatorTest {
 	Comparator tested = new Comparator(toCompare, toCompare);
 	//When
 	ComparisonResponse diff = tested.diff();
+	ComparisonResponse secondDiff = tested.diff();
 	//Then
 	assertThat(diff.getResult()).isNotNull().isEqualTo(ComparisonResult.EQUAL);
+	assertThat(diff).isEqualTo(secondDiff);
   }
 
   @TestWith({

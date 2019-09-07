@@ -3,19 +3,27 @@ package co.femago.assignment.gateway.repository;
 import co.femago.assignment.domain.exception.ComparisionNotFoundException;
 import co.femago.assignment.domain.exception.DiffAlreadyCalculatedException;
 import co.femago.assignment.domain.model.Comparator;
+import co.femago.assignment.domain.model.ComparatorBuilder;
+import co.femago.assignment.domain.model.ComparisonResponse;
 import co.femago.assignment.domain.port.ComparisonRepository;
 import co.femago.assignment.gateway.repository.entity.ComparisonEntity;
+import co.femago.assignment.gateway.repository.entity.ComparisonEntity.ComparisonResponseEntity;
 import co.femago.assignment.gateway.repository.mongo.ComparisonMongoRepository;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ComparisonRepositoryAdapter implements ComparisonRepository {
 
   private final ComparisonMongoRepository mongoRepository;
+  private final ComparatorBuilder comparatorBuilder;
 
-  public ComparisonRepositoryAdapter(ComparisonMongoRepository mongoRepository) {
+  public ComparisonRepositoryAdapter(ComparisonMongoRepository mongoRepository,
+	  ComparatorBuilder comparatorBuilder) {
 	this.mongoRepository = mongoRepository;
+	this.comparatorBuilder = comparatorBuilder;
   }
 
   @Override
@@ -45,9 +53,39 @@ public class ComparisonRepositoryAdapter implements ComparisonRepository {
   }
 
   @Override
+  public void saveComparisonResponse(String id, ComparisonResponse diff) {
+	Optional<ComparisonEntity> byId = mongoRepository.findByComparisonId(id);
+	byId.orElseThrow(ComparisionNotFoundException::new).setResponse(
+		ComparisonResponseEntity.builder()
+			.result(diff.getResult())
+			.details(diff.getDetails())
+			.build()
+	);
+	mongoRepository.save(byId.get());
+  }
+
+  @Override
   public Comparator locateComparision(String id) {
 	Optional<ComparisonEntity> byId = mongoRepository.findByComparisonId(id);
-	byId.orElseThrow(ComparisionNotFoundException::new);
-	return null;
+	return byId.map(this::comparatorEntityToDomain).orElseThrow(ComparisionNotFoundException::new);
+  }
+
+  private Comparator comparatorEntityToDomain(ComparisonEntity comparisonEntity) {
+	Optional<ComparisonResponseEntity> response = Optional
+		.ofNullable(comparisonEntity.getResponse());
+	if (response.isPresent()) {
+	  return comparatorBuilder.build(comparisonEntity.getLeft(), comparisonEntity.getRight(),
+		  response.map(this::responseEntityToDomain).get());
+	} else {
+	  return comparatorBuilder.build(comparisonEntity.getLeft(), comparisonEntity.getRight());
+	}
+  }
+
+  private ComparisonResponse responseEntityToDomain(ComparisonResponseEntity entity) {
+	ComparisonResponse response = new ComparisonResponse(entity.getResult());
+	Optional.ofNullable(entity.getDetails())
+		.map(Collection::stream).orElse(Stream.empty())
+		.forEach(response::addDetail);
+	return response;
   }
 }
