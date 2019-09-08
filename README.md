@@ -59,7 +59,7 @@ PUT http://localhost:8080/v1/diff/example/right
 Content-Type: application/json
 
 {
-  "value": "SW50ZWdyYXRpb25UZXN0T3BlcmF0b3I="
+  "value": "SW50Z1dyYX22b25UZ333T3BlcmF0b3I="
 }
 ```
 5. Call **diff** endpoint. Example:
@@ -68,7 +68,6 @@ GET http://localhost:8080/v1/diff/example
 
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 08 Sep 2019 19:38:47 GMT
 
 {
   "result": "DIFF",
