@@ -60,5 +60,6 @@ public class ComparisonServiceTest {
 	ComparisonResponse compare = tested.compare(ID);
 	//Then
 	assertThat(compare.getResult()).isEqualTo(EQUAL);
+	verify(repository, times(1)).saveComparisonResponse(ID, compare);
   }
 }

@@ -48,14 +48,14 @@ public class ComparisonRepositoryAdapter implements ComparisonRepository {
 
   private void checkDiffNotCalculated(ComparisonEntity comparison) {
 	if (comparison.getResponse() != null) {
-	  throw new DiffAlreadyCalculatedException();
+	  throw new DiffAlreadyCalculatedException(comparison.getComparisonId());
 	}
   }
 
   @Override
   public void saveComparisonResponse(String id, ComparisonResponse diff) {
 	Optional<ComparisonEntity> byId = mongoRepository.findByComparisonId(id);
-	byId.orElseThrow(ComparisionNotFoundException::new).setResponse(
+	byId.orElseThrow(() -> new ComparisionNotFoundException(id)).setResponse(
 		ComparisonResponseEntity.builder()
 			.result(diff.getResult())
 			.details(diff.getDetails())
@@ -67,7 +67,7 @@ public class ComparisonRepositoryAdapter implements ComparisonRepository {
   @Override
   public Comparator locateComparision(String id) {
 	Optional<ComparisonEntity> byId = mongoRepository.findByComparisonId(id);
-	return byId.map(this::comparatorEntityToDomain).orElseThrow(ComparisionNotFoundException::new);
+	return byId.map(this::comparatorEntityToDomain).orElseThrow(() -> new ComparisionNotFoundException(id));
   }
 
   private Comparator comparatorEntityToDomain(ComparisonEntity comparisonEntity) {

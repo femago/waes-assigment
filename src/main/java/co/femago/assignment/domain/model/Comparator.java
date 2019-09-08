@@ -1,16 +1,19 @@
 package co.femago.assignment.domain.model;
 
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.DIFF;
-import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.DIFF_SIZE;
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.EQUAL;
+import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.NOT_EQUAL_SIZE;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
 
 public class Comparator {
 
+  @Getter
   private final String left;
+  @Getter
   private final String right;
 
   private ComparisonResponse response;
@@ -32,7 +35,7 @@ public class Comparator {
 	}
 
 	if (left.length() != right.length()) {
-	  response = new ComparisonResponse(DIFF_SIZE);
+	  response = new ComparisonResponse(NOT_EQUAL_SIZE);
 	} else if (left.equals(right)) {
 	  response = new ComparisonResponse(EQUAL);
 	} else {

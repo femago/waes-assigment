@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,18 +23,18 @@ public class OperatorsController {
 	this.operatorsPort = operatorsPort;
   }
 
-  @PostMapping(path = "/{id}/left", consumes = "application/json")
+  @PutMapping(path = "/{id}/left", consumes = "application/json")
   public void saveLeftOperator(
 	  @PathVariable("id") @NotNull @NotBlank @NotEmpty String id,
 	  @RequestBody OperatorValue operatorValue) {
 	operatorsPort.saveOperator(id, Operator.LEFT, operatorValue.getValue());
   }
 
-  @PostMapping(path = "/{id}/right", consumes = "application/json")
+  @PutMapping(path = "/{id}/right", consumes = "application/json")
   public void saveRightOperator(
 	  @PathVariable("id") @NotNull @NotBlank @NotEmpty String id,
 	  @RequestBody @Valid OperatorValue operatorValue) {
-	operatorsPort.saveOperator(id, Operator.LEFT, operatorValue.getValue());
+	operatorsPort.saveOperator(id, Operator.RIGHT, operatorValue.getValue());
   }
 
 }

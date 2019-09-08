@@ -8,7 +8,7 @@ import lombok.Getter;
 public class ComparisonResponse {
 
   public enum ComparisonResult {
-	EQUAL, DIFF_SIZE, DIFF
+	EQUAL, NOT_EQUAL_SIZE, DIFF
   }
 
   @Getter

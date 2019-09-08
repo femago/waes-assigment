@@ -19,7 +19,6 @@ public class ComparisonService implements ComparisonPort, OperatorsPort {
   @Override
   public ComparisonResponse compare(String id) {
 	Comparator comparator = repository.locateComparision(id);
-
 	ComparisonResponse diff = comparator.diff();
 	repository.saveComparisonResponse(id, diff);
 	return diff;

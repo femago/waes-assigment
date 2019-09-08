@@ -34,7 +34,7 @@ public class ComparatorTest {
 	//When
 	ComparisonResponse diff = tested.diff();
 	//Then
-	assertThat(diff.getResult()).isNotNull().isEqualTo(ComparisonResult.DIFF_SIZE);
+	assertThat(diff.getResult()).isNotNull().isEqualTo(ComparisonResult.NOT_EQUAL_SIZE);
   }
 
   @Test
