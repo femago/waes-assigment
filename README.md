@@ -12,7 +12,7 @@ point `<host>/v1/diff/<ID>`
 * Make assumptions in the implementation explicit, choices are good but need to be communicated	
 
 ## Assumptions
-* **left** and **right** endpoints are implemented using http **PUT** operation since they are implemented as a create/update
+* **left** and **right** endpoints are implemented using http **PUT** method since they are implemented as a create/update
 * **left** or **right** endpoints can be called many times to update the operators values for a given **ID** as 
 long as no diff operation have been called for the given **ID**
     * when **left** or **right** endpoints are called for an already calculated diff following error 
