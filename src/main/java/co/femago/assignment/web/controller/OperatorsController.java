@@ -1,7 +1,7 @@
 package co.femago.assignment.web.controller;
 
+import co.femago.assignment.domain.model.Operator;
 import co.femago.assignment.domain.port.OperatorsPort;
-import co.femago.assignment.domain.port.OperatorsPort.Operator;
 import co.femago.assignment.web.dto.OperatorValue;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

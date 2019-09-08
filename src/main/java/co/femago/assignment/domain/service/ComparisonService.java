@@ -2,6 +2,7 @@ package co.femago.assignment.domain.service;
 
 import co.femago.assignment.domain.model.Comparator;
 import co.femago.assignment.domain.model.ComparisonResponse;
+import co.femago.assignment.domain.model.Operator;
 import co.femago.assignment.domain.port.ComparisonPort;
 import co.femago.assignment.domain.port.ComparisonRepository;
 import co.femago.assignment.domain.port.OperatorsPort;

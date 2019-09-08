@@ -1,7 +1,9 @@
 package co.femago.assignment.domain.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import co.femago.assignment.domain.exception.NotBase64ContentException;
 import co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult;
 import com.googlecode.zohhak.api.TestWith;
 import com.googlecode.zohhak.api.runners.ZohhakRunner;
@@ -10,6 +12,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(ZohhakRunner.class)
 public class ComparatorTest {
+
+  @Test
+  public void operatorsNotBase64() {
+	assertThatThrownBy(() -> new Comparator("*", "")).isInstanceOf(NotBase64ContentException.class);
+	assertThatThrownBy(() -> new Comparator("", "*")).isInstanceOf(NotBase64ContentException.class);
+  }
 
   @Test
   public void leftAndRightEqual() {

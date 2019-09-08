@@ -4,13 +4,16 @@ import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonRes
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.EQUAL;
 import static co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult.NOT_EQUAL_SIZE;
 
+import co.femago.assignment.domain.exception.NotBase64ContentException;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
  * Business logic to compare two strings.
+ *
  * @see ComparatorBuilder
  */
 public class Comparator {
@@ -23,6 +26,12 @@ public class Comparator {
   private ComparisonResponse response;
 
   Comparator(@NotNull String left, @NotNull String right) {
+	if (!Base64.isBase64(left)) {
+	  throw new NotBase64ContentException(Operator.LEFT);
+	}
+	if (!Base64.isBase64(right)) {
+	  throw new NotBase64ContentException(Operator.RIGHT);
+	}
 	this.left = left;
 	this.right = right;
   }

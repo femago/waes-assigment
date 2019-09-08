@@ -2,6 +2,7 @@ package co.femago.assignment.web.advisor;
 
 import co.femago.assignment.domain.exception.ComparisionNotFoundException;
 import co.femago.assignment.domain.exception.DiffAlreadyCalculatedException;
+import co.femago.assignment.domain.exception.NotBase64ContentException;
 import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
@@ -29,10 +30,10 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
   }
 
   /**
-   * Handle error when attempting to change operators for a diff previously calculated
+   * Handle bad requests
    */
-  @ExceptionHandler(DiffAlreadyCalculatedException.class)
-  public ResponseEntity<String> handleAlreadyCalculated(DiffAlreadyCalculatedException ex) {
+  @ExceptionHandler({DiffAlreadyCalculatedException.class, NotBase64ContentException.class})
+  public ResponseEntity<String> handleAlreadyCalculated(Exception ex) {
 	//server cannot or will not process the request due to something that is perceived to be a client error
 	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }
