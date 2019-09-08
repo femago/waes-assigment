@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository concrete implementation, relies on a Spring data repository
+ */
 @Repository
 public class ComparisonRepositoryAdapter implements ComparisonRepository {
 

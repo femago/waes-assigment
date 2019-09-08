@@ -2,6 +2,9 @@ package co.femago.assignment.domain.model;
 
 import lombok.Getter;
 
+/**
+ * Holds offsets + length of a found diff while comparing strings
+ */
 public class DiffDetail {
 
   @Getter
@@ -15,6 +18,6 @@ public class DiffDetail {
   }
 
   public void increaseLength() {
-    length++;
+	length++;
   }
 }

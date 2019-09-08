@@ -8,6 +8,9 @@ import javax.validation.Validator;
 import javax.validation.executable.ExecutableValidator;
 import org.springframework.stereotype.Component;
 
+/**
+ * Builder for {@link Comparator} domain object
+ */
 @Component
 public class ComparatorBuilder {
 

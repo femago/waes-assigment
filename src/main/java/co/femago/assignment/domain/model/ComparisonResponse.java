@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 
+/**
+ * Description of a comparison result
+ */
 public class ComparisonResponse {
 
   public enum ComparisonResult {

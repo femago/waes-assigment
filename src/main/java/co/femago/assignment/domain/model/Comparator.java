@@ -9,6 +9,10 @@ import java.text.StringCharacterIterator;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
+/**
+ * Business logic to compare two strings.
+ * @see ComparatorBuilder
+ */
 public class Comparator {
 
   @Getter

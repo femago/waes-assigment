@@ -7,8 +7,11 @@ import co.femago.assignment.domain.port.ComparisonRepository;
 import co.femago.assignment.domain.port.OperatorsPort;
 import org.springframework.stereotype.Service;
 
+/**
+ * Business implementation of exposed services
+ */
 @Service
-public class ComparisonService implements ComparisonPort, OperatorsPort {
+class ComparisonService implements ComparisonPort, OperatorsPort {
 
   private final ComparisonRepository repository;
 

@@ -1,5 +1,8 @@
 package co.femago.assignment.domain.port;
 
+/**
+ * Operators related functionalities
+ */
 public interface OperatorsPort {
 
   enum Operator {

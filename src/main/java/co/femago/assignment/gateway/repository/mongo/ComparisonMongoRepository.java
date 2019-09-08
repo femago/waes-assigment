@@ -5,6 +5,9 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Mongo repository
+ */
 @Repository
 public interface ComparisonMongoRepository extends MongoRepository<ComparisonEntity, String> {
 

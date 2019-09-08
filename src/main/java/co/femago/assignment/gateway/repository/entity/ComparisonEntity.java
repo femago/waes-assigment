@@ -17,7 +17,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-
+/**
+ * Entity representation of a comparison
+ */
 @Getter
 @Setter
 @Document(collection = "comparison")
