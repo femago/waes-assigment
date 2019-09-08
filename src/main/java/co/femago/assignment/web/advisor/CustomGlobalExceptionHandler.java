@@ -32,7 +32,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
    * Handle error when attempting to change operators for a diff previously calculated
    */
   @ExceptionHandler(DiffAlreadyCalculatedException.class)
-  public ResponseEntity<String> clientError(DiffAlreadyCalculatedException ex) {
+  public ResponseEntity<String> handleAlreadyCalculated(DiffAlreadyCalculatedException ex) {
 	//server cannot or will not process the request due to something that is perceived to be a client error
 	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }

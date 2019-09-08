@@ -43,6 +43,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.googlecode.zohhak:zohhak:1.1.1'
     testImplementation 'org.projectlombok:lombok'
+    testImplementation 'com.foreach.libs:common-test:1.1'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     testIntegrationImplementation 'io.cucumber:cucumber-java8:4.3.0'

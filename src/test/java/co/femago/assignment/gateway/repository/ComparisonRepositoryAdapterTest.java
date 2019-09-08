@@ -8,11 +8,14 @@ import co.femago.assignment.domain.model.Comparator;
 import co.femago.assignment.domain.model.ComparatorBuilder;
 import co.femago.assignment.domain.model.ComparisonResponse;
 import co.femago.assignment.domain.model.ComparisonResponse.ComparisonResult;
+import co.femago.assignment.domain.model.DiffDetail;
 import co.femago.assignment.gateway.repository.config.MongoConfig;
 import co.femago.assignment.gateway.repository.entity.ComparisonEntity;
 import co.femago.assignment.gateway.repository.entity.ComparisonEntity.ComparisonResponseEntity;
 import co.femago.assignment.gateway.repository.mongo.ComparisonMongoRepository;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -149,18 +152,60 @@ public class ComparisonRepositoryAdapterTest {
   }
 
   @Test
-  public void retrieveComparisonBeforeDiff() {
+  public void saveComparisonResponse() {
 	//Given
 	saveEntityWithResponse();
+	removeResponseFromSaved();
+	ComparisonResponse diff = new ComparisonResponse(ComparisonResult.DIFF);
+	//When
+	tested.saveComparisonResponse(A_TEST_ID, diff);
+	//Then
+	Optional<ComparisonEntity> byComparisonId = repository.findByComparisonId(A_TEST_ID);
+	assertThat(byComparisonId).isNotEmpty();
+	assertThat(byComparisonId.get().getResponse()).isNotNull();
+  }
+
+  private void removeResponseFromSaved() {
 	ComparisonEntity comparisonEntity = repository.findAll().get(0);
 	comparisonEntity.setResponse(null);
 	repository.save(comparisonEntity);
+  }
+
+  @Test
+  public void retrieveComparisonBeforeDiff() {
+	//Given
+	saveEntityWithResponse();
+	removeResponseFromSaved();
 	//When
 	Comparator comparator = tested.locateComparision(A_TEST_ID);
 	//Then
 	assertThat(comparator.getLeft()).isEqualTo(OPERATOR_VALUE);
 	assertThat(comparator.getRight()).isEqualTo(OPERATOR_VALUE);
 	assertThat(comparator).extracting("response").hasSize(1).containsOnlyNulls();
+  }
+
+  @Test
+  public void retrieveComparisonWithDiffs() {
+	//Given
+	saveEntityWithResponse();
+	ComparisonEntity comparisonEntity = repository.findAll().get(0);
+	comparisonEntity.setResponse(
+		ComparisonResponseEntity.builder()
+			.result(ComparisonResult.DIFF)
+			.details(Arrays.asList(new DiffDetail(1)))
+			.build()
+	);
+	repository.save(comparisonEntity);
+	//When
+	Comparator comparator = tested.locateComparision(A_TEST_ID);
+	//Then
+	assertThat(comparator.getLeft()).isEqualTo(OPERATOR_VALUE);
+	assertThat(comparator.getRight()).isEqualTo(OPERATOR_VALUE);
+	assertThat(comparator).extracting("response").hasSize(1).doesNotContainNull();
+	ComparisonResponse diff = comparator.diff();
+	assertThat(diff.getResult()).isEqualTo(ComparisonResult.DIFF);
+	assertThat(diff.getDetails()).hasSize(1);
+	assertThat(diff.getDetails().get(0)).extracting("startIndex", "length").contains(1, 0);
   }
 
   private void saveEntityWithResponse() {

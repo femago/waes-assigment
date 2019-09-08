@@ -39,6 +39,9 @@ Requested Id wasn't found: "example5"
 ```
 * **diff** endpoint returns the diff result in the node `{"result": "____",}` containing one of the following 
 values: `EQUAL`, `NOT_EQUAL_SIZE`, `DIFF`
+* after successfully calling a **diff** endpoint, the result is saved in a repository. Subsequent calls 
+with the same ID will retrieve the result from the database instead of calculating it again. Since the 
+operator cannot be updated, the result will remain de same after the first calculation. 
 
 ## Implementation
 ### Running the application
