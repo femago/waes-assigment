@@ -26,7 +26,7 @@ public class OperatorsController {
   @PutMapping(path = "/{id}/left", consumes = "application/json")
   public void saveLeftOperator(
 	  @PathVariable("id") @NotNull @NotBlank @NotEmpty String id,
-	  @RequestBody OperatorValue operatorValue) {
+	  @RequestBody @Valid OperatorValue operatorValue) {
 	operatorsPort.saveOperator(id, Operator.LEFT, operatorValue.getValue());
   }
 

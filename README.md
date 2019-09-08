@@ -20,10 +20,22 @@ long as no diff operation have been called for the given **ID**
 ```
 HTTP/1.1 400 
 Content-Type: text/plain;charset=UTF-8
-Content-Length: 68
-Connection: close
 
 Operators cannot be changed for a previously processed Id: "example"   
+```
+* calling **diff** endpoint before calling **left** or **right** will return and error
+```
+HTTP/1.1 400 
+Content-Type: text/plain;charset=UTF-8
+
+Not enough parameters to create a comparator: Comparator.right: cannot be null
+```
+* calling **diff** endpoint before any operator will return and error
+``` 
+HTTP/1.1 404 
+Content-Type: text/plain;charset=UTF-8
+
+Requested Id wasn't found: "example5"
 ```
 * **diff** endpoint returns the diff result in the node `{"result": "____",}` containing one of the following 
 values: `EQUAL`, `NOT_EQUAL_SIZE`, `DIFF`
@@ -34,7 +46,7 @@ values: `EQUAL`, `NOT_EQUAL_SIZE`, `DIFF`
 2. run `./gradlew bootRun`
 3. Application starts on port 8080
 4. Call **left** and **right** endpoints. Example:
-```json
+```
 PUT http://localhost:8080/v1/diff/example/left
 Content-Type: application/json
 
@@ -42,7 +54,7 @@ Content-Type: application/json
   "value": "SW50ZWdyYXRpb25UZXN0T3BlcmF0b3I="
 }
 ```
-```json
+```
 PUT http://localhost:8080/v1/diff/example/right
 Content-Type: application/json
 
@@ -51,7 +63,7 @@ Content-Type: application/json
 }
 ```
 5. Call **diff** endpoint. Example:
-```json
+```
 GET http://localhost:8080/v1/diff/example
 
 HTTP/1.1 200 
