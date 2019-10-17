@@ -1,6 +1,6 @@
-# Java - Assignment Scalable Web	
+# Simple Java Sandbox	
 
-## Assigment
+## Features
 * Provide 2 http endpoints that accepts JSON base64 encoded binary data on both endpoints 
 `<host>/v1/diff/<ID>/left` and `<host>/v1/diff/<ID>/right`
 * The provided data needs to be diff-ed and the results shall be available on a third end 
